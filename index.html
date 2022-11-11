@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/supercluster@7.1.2/dist/supercluster.min.js"></script>
+    <script src="https://webapi.amap.com/maps?v=1.4.15&key=d96fa60ffe5e11cf1e33dc2cc4ba38a2"></script>
+    <script src="./src/polygonClusterer.js"></script>
+    <!-- <script src="./src/data.js"></script> -->
+    <script src="./package.json"></script>
+    <script src="./src/mock.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script type="text/javascript">
+    var map = new AMap.Map("app", {
+      center: [113.121788, 23.020367],
+      zoom: 10,
+      zooms: [3, 20],
+      expandZoomRange: true,
+    }).on('complete',()=>{
+        cl.getView()
+    })
+
+
+    const cl = new PolygonClusterer(map, {
+      SuperclusterOpt() {
+        return {
+          radius: 150,
+          maxZoom: 18,
+        };
+      },
+      markerOpt(geojson, lnglats) {
+        return {
+          content: `<div style="width: 30px;height: 30px;background: red;border-radius: 50%;text-align: center;line-height: 30px">
+                ${geojson.properties.point_count}
+                </div>`,
+        };
+      },
+      polygonOpt(geojson, lnglats) {
+        return {
+          fillColor: "#1D94FA", // 多边形填充颜色
+          borderWeight: 1, // 线条宽度，默认为 1
+          strokeColor: "#1D94FA", // 线条颜色
+        };
+      },
+    });
+    cl.setGeoJson(dataObj.items, { lnglatsKey: "polygons" });
+    // cl.removeAMapEvent()
+
+    const cl1 = new PolygonClusterer(map, {
+      SuperclusterOpt() {
+        return {
+          radius: 150,
+          maxZoom: 16,
+        };
+      },
+      markerOpt(geojson, lnglats) {
+        return {
+          content: `<div style="width: 30px;height: 30px;background: blue;border-radius: 50%;text-align: center;line-height: 30px">
+                ${geojson.properties.point_count}
+                </div>`,
+        };
+      },
+      polygonOpt() {
+        return {
+          fillColor: "#2EDD8E", // 多边形填充颜色
+          borderWeight: 1, // 线条宽度，默认为 1
+          strokeColor: "#2EDD8E", // 线条颜色
+        };
+      },
+    });
+    // cl1.setGeoJson(geoJSON);
+
+  </script>
+  <style>
+    body {
+      margin: 0px;
+      padding: 0px;
+    }
+    #app {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</html>

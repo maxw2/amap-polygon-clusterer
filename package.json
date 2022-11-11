@@ -1,0 +1,7 @@
+{
+  "name": "AMap-PolygonClusterer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "maxw2 <mixcrtk@163.com>",
+  "license": "MIT"
+}
