@@ -91,7 +91,6 @@ class PolygonClusterer {
     }
     
     geoJSONGroup(geoJsonData) {
-        console.log(geoJsonData, 'geoJsonData')
         const that = this
         // 筛选点标记还是矢量图形
         // 判断依据是 polygons 值是否存在

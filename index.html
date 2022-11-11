@@ -23,6 +23,7 @@
       expandZoomRange: true,
     }).on('complete',()=>{
         cl.getView()
+        cl1.getView()
     })
 
 
@@ -49,7 +50,6 @@
       },
     });
     cl.setGeoJson(dataObj.items, { lnglatsKey: "polygons" });
-    // cl.removeAMapEvent()
 
     const cl1 = new PolygonClusterer(map, {
       SuperclusterOpt() {
@@ -73,7 +73,7 @@
         };
       },
     });
-    // cl1.setGeoJson(geoJSON);
+    cl1.setGeoJson(geoJSON);
 
   </script>
   <style>
